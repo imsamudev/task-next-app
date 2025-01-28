@@ -16,8 +16,8 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "SamTask",
-  description: "A simple and modern task app. Tasks, Next, React, CRUD,",
+  title: "MyTasky",
+  description: "A simple and modern task app. Tasks, Next, React, CRUD, Server Actions.",
 };
 
 export default function RootLayout({
