@@ -5,7 +5,7 @@ import { buttonVariants } from './button'
 
 const Header = () => {
     return (
-        <header className='flex justify-between p-1 py-2'>
+        <header className='flex justify-between p-1 py-10'>
             <h1 className='text-3xl'> MyTasky </h1>
             <div className='flex gap-x-2 items-start'>
                 <Link href='/newTask'
