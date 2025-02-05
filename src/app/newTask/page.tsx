@@ -1,7 +1,7 @@
 import React from 'react'
 import { TaskForm } from './task-form'
 
-function NewPage() {
+function NewTaskPage() {
     return (
         <div className='flex justify-center items-center h-screen'>
             <TaskForm />
@@ -9,4 +9,4 @@ function NewPage() {
     )
 }
 
-export default NewPage
+export default NewTaskPage

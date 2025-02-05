@@ -1,6 +1,4 @@
-import * as React from "react"
-
-import { Button } from "@/components/ui/button"
+import { Button, buttonVariants } from "@/components/ui/button"
 import {
     Card,
     CardContent,
@@ -19,41 +17,25 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
-import prisma from "@/lib/prisma"
-import { redirect } from "next/navigation"
+import { createTask, updateTask } from "@/actions/taskActions"
+import { Task } from "@prisma/client"
+import Link from "next/link"
 
-export function TaskForm() {
 
-    async function createTask(formData: FormData) {
-        "use server"
-        const name = formData.get("name")?.toString()
-        const description = formData.get("description")?.toString()
-        const priority = formData.get("priority")?.toString()
+export function TaskForm({ task }: { task?: Task }) {
 
-        console.log({ name, description, priority });
+    const functionAction = task?.id ? updateTask : createTask;
 
-        if (!name || !description || !priority) {
-            return;
-        }
-
-        const newTask = await prisma.task.create({
-            data: {
-                name: name,
-                description: description,
-                priority: priority
-            }
-        })
-
-        console.log(newTask);
-        redirect('/')
-    }
 
     return (
-        <form action={createTask}>
+        <form action={functionAction}>
+            <input type="hidden" name="id" value={task?.id} />
             <Card className="w-[350px]">
                 <CardHeader>
-                    <CardTitle>Crear tarea</CardTitle>
-                    <CardDescription>Llena el formulario debajo para crear una nueva tarea</CardDescription>
+                    <CardTitle>
+                        {task?.id ? "Actualizar tarea" : "Crear tarea"}
+                    </CardTitle>
+                    <CardDescription> {task?.id ? "Puedes modificar el formulario debajo" : "Llena el siguiente formulario para crear la tarea"}</CardDescription>
                 </CardHeader>
                 <CardContent>
                     <div className="grid w-full items-center gap-4">
@@ -62,7 +44,8 @@ export function TaskForm() {
                             <Input
                                 name="name"
                                 id="name"
-                                placeholder="Nombre de tu tarea"
+                                placeholder="Nombre de la tarea..."
+                                defaultValue={task?.name}
                             />
                         </div>
                         <div className="flex flex-col space-y-1.5">
@@ -71,12 +54,14 @@ export function TaskForm() {
                                 name="description"
                                 id="description"
                                 placeholder="Descripción de la tarea..."
+                                defaultValue={task?.description || ""}
                             />
                         </div>
                         <div className="flex flex-col space-y-1.5">
                             <Label htmlFor="priority">Prioridad</Label>
                             <Select
-                                name="priority">
+                                name="priority"
+                                defaultValue={task?.priority}>
                                 <SelectTrigger id="priority">
                                     <SelectValue placeholder="Seleccionar" />
                                 </SelectTrigger>
@@ -91,9 +76,15 @@ export function TaskForm() {
                     </div>
                 </CardContent>
                 <CardFooter className="flex justify-between">
-                    <Button variant="outline">Cancel</Button>
+                    <Link
+                        href="/"
+                        className={buttonVariants({ variant: "secondary" })}>
+                        Cancel
+                    </Link>
                     <Button
-                        type="submit">Listo</Button>
+                        type="submit">
+                        {task?.id ? "Actualizar" : "Crear"}
+                    </Button>
                 </CardFooter>
             </Card>
         </form>
