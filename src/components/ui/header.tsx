@@ -8,7 +8,7 @@ const Header = () => {
         <header className='flex justify-between p-1 py-10'>
             <Link
                 href="/">
-                <h1 className='text-3xl'> MyTasky </h1>
+                <h1 className='text-4xl px-2'> MyTasky </h1>
             </Link>
             <div className='flex gap-x-2 items-start'>
                 <Link
