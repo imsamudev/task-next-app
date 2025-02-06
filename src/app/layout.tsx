@@ -17,7 +17,8 @@ const geistMono = localFont({
 
 export const metadata: Metadata = {
   title: "MyTasky",
-  description: "A simple and modern task app. Tasks, Next, React, CRUD, Server Actions.",
+  description: "A simple and modern task app made with Server Actions of Next.js",
+  keywords: ["task app", "simple task", "tasks", "server actions", "next.js", "vercel", "MyTasky"],
 };
 
 export default function RootLayout({
@@ -28,7 +29,7 @@ export default function RootLayout({
   return (
     <html lang="es" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} min-h-screen antialiased bg-gradient-to-br from-secondary to-transparent`}
+        className={`${geistSans.variable} ${geistMono.variable} min-h-screen antialiased bg-gradient-to-br from-secondary to-background`}
       >
         <ThemeProvider
           attribute="class"
