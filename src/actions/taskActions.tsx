@@ -65,3 +65,10 @@ export async function updateTask(formData: FormData) {
     redirect('/')
     console.log([id, name, description, priority]);
 }
+export async function markTaskCompleted(taskId: number, completed: boolean) {
+    await prisma.task.update({
+        where: { id: taskId },
+        data: { completed },
+    });
+    revalidatePath("/");
+}
